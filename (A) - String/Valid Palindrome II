@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool pal(string &s) {
+        string res = s;
+        reverse(res.begin(), res.end());
+        return s == res;
+    }
+    
+    bool validPalindrome(string s) {
+        if (pal(s)) return true;
+        string res = s;
+        for (int i = 0; i < s.size(); i++) {
+            string temp = s;
+            temp.erase(temp.begin() + i);
+            if (pal(temp)) return true;
+        }
+        return false;
+    }
+};
