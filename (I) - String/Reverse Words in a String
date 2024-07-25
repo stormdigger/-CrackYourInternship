@@ -1,0 +1,15 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string token = "";
+        stringstream ss(s);
+        string res = "";
+        while(getline(ss, token, ' '))
+        {
+            res = token + " " + res;
+        }
+        int i=0;
+        res = regex_replace(res, regex("^ +| +$|( ) +"), "$1");
+        return res;
+    }
+};
