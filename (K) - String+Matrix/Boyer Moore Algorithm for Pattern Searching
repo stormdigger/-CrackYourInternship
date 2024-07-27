@@ -1,0 +1,31 @@
+vector<int> boyerMooreHorspool(const string& text, const string& pattern) {
+    vector<int> occurrences;
+    int textLength = text.length();
+    int patternLength = pattern.length();
+
+    if (patternLength == 0) {
+        return occurrences;
+    }
+
+    vector<int> shiftTable(256, patternLength);
+    for (int i = 0; i < patternLength - 1; i++) {
+        shiftTable[pattern[i]] = patternLength - 1 - i;
+    }
+
+    int i = 0;
+    while (i <= textLength - patternLength) {
+        int j = patternLength - 1;
+        while (j >= 0 && pattern[j] == text[i + j]) {
+            j--;
+        }
+        if (j == -1) {
+            occurrences.push_back(i);
+            i++;
+        } else {
+            int shift = shiftTable[text[i + patternLength - 1]];
+            i += shift;
+        }
+    }
+
+    return occurrences;
+}
