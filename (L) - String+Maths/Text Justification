@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string buildline(vector<string>& curr, int maxWidth, int &currlen){
+        int spaces = maxWidth - currlen;
+
+        for(int i=0;i<spaces;i++){
+            if(curr.size()==1)
+                curr[0]+=" ";
+            else
+                curr[i%(curr.size()-1)]+=" ";
+        }
+
+        string finl = accumulate(curr.begin(),curr.end(),string(""));
+        curr.clear();
+        currlen = 0;
+        return finl;
+    }
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> curr;
+        vector<string> res;
+        int currlen = 0;
+        for(int i=0;i<words.size();i++){
+            if(words[i].length() + currlen + curr.size() > maxWidth){
+                res.push_back(buildline(curr,maxWidth,currlen));
+            }
+            curr.push_back(words[i]);
+            currlen+=words[i].length();
+        }
+        string finl;
+        for(auto it : curr)
+            finl+=it+" ";
+        finl.pop_back();
+        for(int i = finl.length();i<maxWidth;i++)
+            finl+=" ";
+        res.push_back(finl);
+        return res;
+    }
+};
