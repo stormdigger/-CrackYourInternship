@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int help(vector<int> &nums, int k, int cur_word, int rem_len,vector<vector<int>>& memo ){
+        // cout << rem_len<< cur_word<< endl;
+        if (cur_word == nums.size()){return 0;}
+        if (rem_len < 0){return help(nums, k , cur_word, k,memo);}
+        if (memo[rem_len][cur_word] >= 0){return memo[rem_len][cur_word];}
+        if (rem_len < nums[cur_word]){
+            return memo[rem_len][cur_word] = (rem_len+1)*(rem_len+1) + help(nums, k, cur_word+1, k-nums[cur_word]-1,memo);
+        }
+        if (cur_word == nums.size() - 1){
+            return memo[rem_len][cur_word] = 0;
+        }
+        int ans = min(help(nums, k, cur_word+1, k-nums[cur_word]-1,memo) + (rem_len+1)*(rem_len+1) , help(nums, k, cur_word+ 1, rem_len - nums[cur_word] -1,memo));
+        return memo[rem_len][cur_word] = ans; 
+    }
+    int solveWordWrap(vector<int>nums, int k) 
+    { 
+        vector<vector<int>> memo;
+        memo.resize(k+1, vector<int>(nums.size(), -1));
+        return help(nums, k , 0, k,memo);
+    }  
+};
