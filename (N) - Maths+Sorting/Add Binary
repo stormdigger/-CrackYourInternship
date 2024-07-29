@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int len1 = a.size()-1;
+        int len2 = b.size()-1;
+        int carry = 0;
+        string res="";
+        while(len1>=0 || len2>=0)
+        {
+            int diga = 0;
+            if(len1>=0)
+            {
+                diga = int(a[len1]-'0');
+                len1--;
+            }
+            int digb = 0;
+            if(len2>=0)
+            {
+                digb = int(b[len2]-'0');
+                len2--;
+            }
+            int total = diga+digb+carry;
+            res=to_string(total%2)+res;
+            carry = total/2;
+        }
+        if(carry)
+        {
+            res = '1'+res;
+        }
+        return res;
+    }
+};
