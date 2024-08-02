@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        ListNode *temp=head;
+        stack<int>ans;
+        while(temp!=NULL)
+        {
+            ans.push(temp->val);
+            temp=temp->next;
+        }
+        int fact=1;
+        int sum=0;
+        while(!ans.empty())
+        {
+            sum+=(fact*ans.top());
+            cout<<ans.top()<<" ";
+            fact*=2;
+            ans.pop();
+        }
+        return sum;
+    }
+};
