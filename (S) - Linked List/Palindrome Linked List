@@ -1,0 +1,51 @@
+class Solution {
+public:
+    ListNode *middle(ListNode *head)
+    {
+        ListNode *slow=head,*fast=head;
+        while(fast->next!=NULL && fast->next->next!=NULL)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+    ListNode *rev(ListNode *head)
+    {
+        ListNode *prev=NULL;
+        ListNode *curr=head;
+        ListNode *next;
+        while(curr)
+        {
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL)
+        {
+            return false;
+        }
+        if(head->next==NULL)
+        {
+            return true;
+        }
+        ListNode *mid=middle(head);
+        ListNode *list=mid->next;
+        mid->next=NULL;
+        list=rev(list);
+        while(head && list)
+        {
+            if(head->val!=list->val)
+            {
+                return false;
+            }
+            head=head->next;
+            list=list->next;
+        }
+        return true;
+    }
+};
