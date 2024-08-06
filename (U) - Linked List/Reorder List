@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        ListNode *ans=head;
+        ListNode *temp=head;
+        ListNode *prev=NULL;
+        ListNode *curr=head;
+        ListNode *forward=NULL;
+        while(curr!=NULL)
+        {
+            forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+        }
+        while(prev->val!=temp->val)
+        {
+            ans->val=temp->val;
+            ans=ans->next;
+            ans->val=prev->val;
+            ans=ans->next;
+            temp=temp->next;
+            prev=prev->next;
+        }
+    }
+};
