@@ -1,0 +1,34 @@
+class Solution {
+public:
+    void append(ListNode* &root, int n) {
+        if (!root) {
+            root = new ListNode(n);
+            return;
+        }
+        ListNode* temp = root;
+        while(temp -> next) {
+            if (temp -> next) temp = temp -> next;
+            else break;
+        }
+        temp -> next = new ListNode(n);
+    }
+
+    ListNode* partition(ListNode* head, int x) {
+        vector<int> n; 
+        ListNode* t = head;
+
+        // Serialize the list
+        while(t) n.push_back(t -> val), t = t -> next;
+
+        // Pick the smaller elements than x
+        vector<int> v;
+        for(int i : n) if (i < x) v.push_back(i);
+        for(int i : n) if (i >= x) v.push_back(i); // pick elements >= x
+        
+        // Convert the vector back to linked-list
+        ListNode* ans = nullptr;
+        for(int i: v) append(ans, i);
+
+        return ans;
+    }
+};
